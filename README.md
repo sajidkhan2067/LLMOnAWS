@@ -1,32 +1,50 @@
-# Deploying an LLM on AWS Lambda
+# Deploying a Smaller Open Source Large Language Model on AWS Lambda
 
-This repository contains code and instructions for deploying a smaller open-source Language Large Model (LLM) on AWS Lambda, using Python, Docker. The model used for demonstration is Phi-2 from Microsoft. This project aims to demonstrate how to use serverless infrastructure for LLM inference, particularly for applications requiring processing of sensitive data or specialized tasks.
+## Overview
+Large Language Models (LLMs) are cutting-edge technology gaining widespread experimentation. While managed services like OpenAI offer cost-effective LLM usage, there are scenarios where running an LLM locally becomes necessary. This may be due to handling sensitive data or needing high-quality outputs in languages other than English. Open source LLMs match the quality of major players like OpenAI but often demand significant compute resources. Deploying smaller models on platforms like AWS Lambda can offer cost-effective alternatives.
 
-## Project Overview
+## Project Goal
+This project aims to deploy a smaller open-source LLM, specifically Microsoft Phi-2, a 2.7 billion parameter model that rivals outputs from larger open-source models. We will explore LLMs, and docker-based lambdas, evaluate performance, and assess costs for real-world applications.
 
-The project involves deploying the Microsoft Phi-2 model, a 2.7 billion parameter LLM, on AWS Lambda using Docker. It demonstrates creating an HTTP REST endpoint through Lambda's URL mechanism to provide LLM outputs with execution details.
+## Steps
 
-### Detailed Guide
-For a step-by-step tutorial, refer to the article: [How to deploy an LLM on AWS Lambda?](https://horosin.com/deploy-a-language-model-llm-on-aws-lambda)
-### Key Features
-- Utilizes the Phi-2 model from Microsoft.
-- Implements docker-based AWS Lambda functions.
-- Demonstrates the use of the `llama-cpp-python` package for LLM inference.
+### 1. Environment Setup (AWS, Docker, and Python)
+Ensure you have the necessary tools installed, including an AWS account, AWS CLI, Docker, and Python.
 
-## Prerequisites for the tutorial
-- Basic knowledge of programming, Docker, AWS, and Python.
-- AWS account with AWS CLI installed and configured.
-- Docker installed on your machine.
-- A preferred IDE, such as Visual Studio Code.
+### 2. Set up Lambda Function Locally with Docker
+- Create a basic Python Lambda function handler in a `lambda_function.py file.
+- Define dependencies in `requirements.txt`, starting with the AWS library (`boto3`).
+- Create a `Dockerfile` specifying the Docker image composition.
+- Set up `docker-compose.yml` for running and building the container.
+- Build and start the container locally using `docker-compose up`.
 
-## Getting Started
-Clone this repository to get started with deploying your own LLM on AWS Lambda. Follow the instructions provided in the tutorial to set up your environment, run a containerized LLM locally, and deploy it to AWS Lambda.
+### 3. Run an LLM Inside the Container
+- Add `llama-cpp-python` to `requirements.txt`.
+- Introduce a Docker build stage for llama-cpp installation and model download.
+- Modify the Lambda code to run LLM inference.
+
+### 4. Test Locally
+Rebuild the container and test with a real prompt using `curl`.
+
+### 5. Deploy to AWS Lambda
+Execute the deployment using the provided script (`deploy.sh`). This involves creating or checking the ECR repository, IAM role, Docker-ECR authentication, Docker image construction, ECR image upload, IAM role ARN acquisition, Lambda function verification, configuration, and deployment.
+
+### 6. Test Remotely
+Use the Lambda function URL obtained during deployment to test with a prompt.
+
+## Prerequisites
+Ensure you have a working knowledge of programming, Docker, AWS, and Python.
+
+## Notes
+- For deployment on ARM AWS Lambda, follow the provided instructions. Instructions for x86 deployment are included.
+- All files should be stored in a single project directory without subfolders.
+
+Feel free to explore, modify, and run the provided scripts to deploy and test your open-source LLM on AWS Lambda.
 
 
-## Social Media and Contact
-Stay updated and reach out through the following channels:
-- **Newsletter**: [Subscribe here](https://horosin.com/newsletter)
-- **Twitter**: [@horosin_](https://twitter.com/horosin_)
-- **LinkedIn**: [Profile](https://www.linkedin.com/in/horosin/)
+## References
+1. https://huggingface.co/
+2. https://aws.amazon.com/
+3. https://horosin.com/deploy-a-language-model-llm-on-aws-lambda
+4. https://medium.com/technology-nineleaps/deploying-the-hugging-face-llm-in-amazon-sagemaker-37b71cd74aca
 
-Feel free to contribute to this repository, raise issues, or suggest improvements. Your feedback and contributions are highly appreciated!
