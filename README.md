@@ -33,7 +33,7 @@ Execute the deployment using the provided script (`deploy.sh`). This involves cr
 Use the Lambda function URL obtained during deployment to test with a prompt.
 
 ## Prerequisites
-Ensure I have a working knowledge of programming, Docker, AWS, and Python.
+Working knowledge of programming, Docker, AWS, and Python.
 
 ## Notes
 - All files should be stored in a single project directory without subfolders.
